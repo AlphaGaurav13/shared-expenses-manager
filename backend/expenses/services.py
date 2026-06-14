@@ -92,7 +92,7 @@ def compute_group_balances(group_id):
     member_names = {}
     for user in members:
         balances[user.id] = Decimal('0.00')
-        ledgers[user.id] = []
+        ledgers[str(user.id)] = []
         member_names[user.id] = user.username
         
     expenses = Expense.objects.filter(group_id=group_id).prefetch_related('splits__user', 'paid_by')
@@ -102,7 +102,7 @@ def compute_group_balances(group_id):
         
         if payer_id in balances:
             balances[payer_id] += expense.amount_in_inr
-            ledgers[payer_id].append({
+            ledgers[str(payer_id)].append({
                 'type': 'expense_paid',
                 'id': str(expense.id),
                 'description': expense.description,
@@ -129,7 +129,7 @@ def compute_group_balances(group_id):
                 elif expense.split_type == 'unequal':
                     split_detail_str = f"Unequal split"
                 
-                ledgers[u_id].append({
+                ledgers[str(u_id)].append({
                     'type': 'expense_share',
                     'id': str(expense.id),
                     'description': expense.description,
@@ -149,7 +149,7 @@ def compute_group_balances(group_id):
         
         if payer_id in balances:
             balances[payer_id] += settlement.amount_in_inr
-            ledgers[payer_id].append({
+            ledgers[str(payer_id)].append({
                 'type': 'settlement_paid',
                 'id': str(settlement.id),
                 'description': f"Paid {settlement.paid_to.username}",
@@ -163,7 +163,7 @@ def compute_group_balances(group_id):
             
         if recipient_id in balances:
             balances[recipient_id] -= settlement.amount_in_inr
-            ledgers[recipient_id].append({
+            ledgers[str(recipient_id)].append({
                 'type': 'settlement_received',
                 'id': str(settlement.id),
                 'description': f"Received from {settlement.paid_by.username}",
