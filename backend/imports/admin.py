@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import CSVImport, ImportAnomaly
 
-# Register your models here.
+admin.site.register(CSVImport)
+admin.site.register(ImportAnomaly)
