@@ -1,6 +1,6 @@
 # SCOPE: Database Schema & Anomaly Log
 
-This document details the database schema and tracks all 16 deliberate data problems identified in the customer's `expenses_export.csv` data.
+This document describes the database schema, anomaly detection strategy, and resolution policies implemented for importing the provided `expenses_export.csv` file. During analysis, 16 distinct data anomalies were identified, documented, and handled through explicit import policies.
 
 ---
 
