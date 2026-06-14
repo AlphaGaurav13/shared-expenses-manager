@@ -65,3 +65,27 @@ For details on database modeling, anomaly policies, and AI pair-programming deta
 - [SCOPE.md](file:///c:/Users/shikh/Desktop/DriveAssignment/SCOPE.md): Database Schema and Anomaly Detection Log.
 - [DECISIONS.md](file:///c:/Users/shikh/Desktop/DriveAssignment/DECISIONS.md): Architectural Design Decisions.
 - [AI_USAGE.md](file:///c:/Users/shikh/Desktop/DriveAssignment/AI_USAGE.md): AI interaction history and bug resolution logs.
+
+---
+
+## Deployment to Vercel
+
+The repository is pre-configured to be deployed directly to Vercel. 
+
+### Monorepo Single Deployment Option
+At the project root, a [vercel.json](file:///c:/Users/shikh/Desktop/DriveAssignment/vercel.json) file is provided to deploy both the React frontend and Django backend together:
+1. Go to the [Vercel Dashboard](https://vercel.com) and click **Add New Project**.
+2. Select your repository.
+3. Leave the **Root Directory** as the root (`./`).
+4. Vercel will automatically read the root `vercel.json` and build:
+   - The React frontend at `/` (routing requests to index.html)
+   - The Django serverless functions under `/api/`
+5. Configure the environment variables in your Vercel Project settings:
+   - `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD` (Point to a persistent hosted database like Supabase or Neon, since local SQLite is ephemeral on Vercel).
+   - `VITE_API_BASE_URL` (Set this to your Vercel deployment URL with `/api`, e.g. `https://my-app.vercel.app/api`).
+
+### Preferred Split Deployment Option
+Because Django serverless functions on Vercel have ephemeral local storage and a 50-second timeout, the recommended production approach is:
+1. **Frontend**: Deploy `frontend/` folder directly to Vercel using `frontend/vercel.json` (Vercel will manage routing redirects).
+2. **Backend**: Deploy `backend/` to a persistent provider (e.g. Render, Railway, or Koyeb) connected to a hosted PostgreSQL instance. Set the environment variable `VITE_API_BASE_URL` on Vercel pointing to this backend.
+
