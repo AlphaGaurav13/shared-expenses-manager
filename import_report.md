@@ -1,0 +1,27 @@
+# SplitPro CSV Import Anomaly Report
+
+This report lists every transaction row from the client's `Expenses Export.csv` containing data anomalies, including the anomaly type, description, and the resolution action taken.
+
+| Row | Date | Description | Amount | Detected Anomalies | Resolution Action Taken |
+|---|---|---|---|---|---|
+| 5 | 08-02-2026 | Dinner at Marina Bites | 3200 INR | **[inactive_payer]** (warning): Payer 'Dev' was not an active member on 2026-02-08.<br>**[inactive_split_member]** (warning): Split member 'Dev' was not active in the group on 2026-02-08. | Imported with default cleanup; Adjusted splits (Meera removed from April splits post-moveout) |
+| 6 | 08-02-2026 | dinner - marina bites | 3200 INR | **[inactive_payer]** (warning): Payer 'Dev' was not an active member on 2026-02-08.<br>**[inactive_split_member]** (warning): Split member 'Dev' was not active in the group on 2026-02-08.<br>**[exact_duplicate]** (warning): Row 6 is an exact duplicate of Row 5.<br>**[duplicate_discrepancy]** (warning): Conflict warning: Row matches Row 5 on date and description, but has different values. | Discarded / Ignored (Duplicate transaction); Manually Approved (Kept correct log, discarded incorrect); Imported with default cleanup; Adjusted splits (Meera removed from April splits post-moveout) |
+| 7 | 10-02-2026 | Electricity Feb | 1,200 INR | **[amount_formatting_warning]** (warning): Amount field was formatted as '1,200', auto-cleaned to '1200'. | Auto-Cleaned (Stripped quotes/commas) |
+| 9 | 14-02-2026 | Movie night snacks | 640 INR | **[user_casing_inconsistency]** (warning): User casing mismatch: 'priya' auto-normalized to 'Priya' | Auto-Normalized (Corrected member username casing) |
+| 10 | 15-02-2026 | Cylinder refill | 899.995 INR | **[excessive_decimal_places]** (info): Amount '899.995' has 3 decimal places. Will round to 2 decimals. | Auto-Rounded (Half-up to 2 decimals) |
+| 11 | 18-02-2026 | Groceries DMart | 1875 INR | **[user_spelling_variant]** (warning): Name variant detected: 'Priya S' mapped to 'Priya' | Auto-Mapped (Mapped variant name to correct member) |
+| 13 | 22-02-2026 | House cleaning supplies | 780 INR | **[missing_payer]** (error): Payer (paid_by) field is empty. | Manually Assigned (Assigned creator Aisha as payer) |
+| 14 | 25-02-2026 | Rohan paid Aisha back | 5000 INR | **[settlement_logged_as_expense]** (warning): No split type provided and split target is a single person. Detected as a debt payment/settlement. | Imported as Settlement (Created repayment transaction) |
+| 15 | 28-02-2026 | Pizza Friday | 1440 INR | **[invalid_split_percentage_sum]** (error): Split percentages sum to 110% instead of 100%. | Auto-Scaled (Scaled percentages proportionally to 100%) |
+| 20 | 09-03-2026 | Goa villa booking | 540 USD | **[currency_usd]** (info): USD currency detected. Requires conversion using exchange rate. | Auto-Converted (Converted USD to INR at 83.0 rate) |
+| 21 | 10-03-2026 | Beach shack lunch | 84 USD | **[currency_usd]** (info): USD currency detected. Requires conversion using exchange rate. | Auto-Converted (Converted USD to INR at 83.0 rate) |
+| 23 | 11-03-2026 | Parasailing | 150 USD | **[currency_usd]** (info): USD currency detected. Requires conversion using exchange rate. | Auto-Converted (Converted USD to INR at 83.0 rate) |
+| 25 | 11-03-2026 | Thalassa dinner | 2450 INR | **[duplicate_discrepancy]** (warning): Conflict warning: Row matches Row 24 on date and description, but has different values. | Manually Approved (Kept correct log, discarded incorrect) |
+| 26 | 12-03-2026 | Parasailing refund | -30 USD | **[currency_usd]** (info): USD currency detected. Requires conversion using exchange rate.<br>**[negative_amount]** (warning): Negative amount (-30) detected. This will be treated as a refund. | Imported as Refund (Credited split values to debtors); Auto-Converted (Converted USD to INR at 83.0 rate) |
+| 27 | Mar-14 | Airport cab | 1100 INR | **[date_warning]** (warning): Date format is atypical ('Mar-14'), parsed as 14-03-2026.<br>**[user_casing_inconsistency]** (warning): User casing mismatch: 'rohan' auto-normalized to 'Rohan' | Auto-Parsed (Normalized atypical date format); Auto-Normalized (Corrected member username casing) |
+| 28 | 15-03-2026 | Groceries DMart | 2105  | **[currency_missing]** (warning): Currency was missing, defaulted to INR. | Defaulted to INR (Base currency) |
+| 31 | 22-03-2026 | Dinner order Swiggy | 0 INR | **[zero_amount]** (warning): Expense amount is zero. Might be duplicate cancel row. | Discarded / Ignored (Zero-value Swiggy correction) |
+| 32 | 25-03-2026 | Weekend brunch | 2200 INR | **[invalid_split_percentage_sum]** (error): Split percentages sum to 110% instead of 100%. | Auto-Scaled (Scaled percentages proportionally to 100%) |
+| 34 | 04-05-2026 | Deep cleaning service | 2500 INR | **[date_ambiguity]** (warning): Date format confusion: Notes ask if this is April 5 or May 4. Standard is DD-MM-YYYY. | Manually Confirmed (Confirmed DD-MM-YYYY format) |
+| 36 | 02-04-2026 | Groceries BigBasket | 2640 INR | **[inactive_split_member]** (warning): Split member 'Meera' was not active in the group on 2026-04-02. | Adjusted splits (Meera removed from April splits post-moveout) |
+| 42 | 18-04-2026 | Furniture for common room | 12000 INR | **[redundant_split_details]** (info): Equal split type has redundant split_details. Details will be ignored. | Imported with default cleanup |
