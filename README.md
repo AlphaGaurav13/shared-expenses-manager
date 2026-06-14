@@ -62,9 +62,9 @@ SplitPro is a production-ready web application built to manage shared flatting o
 
 ## Deliverable Documents
 For details on database modeling, anomaly policies, and AI pair-programming details, see:
-- [SCOPE.md](file:///c:/Users/shikh/Desktop/DriveAssignment/SCOPE.md): Database Schema and Anomaly Detection Log.
-- [DECISIONS.md](file:///c:/Users/shikh/Desktop/DriveAssignment/DECISIONS.md): Architectural Design Decisions.
-- [AI_USAGE.md](file:///c:/Users/shikh/Desktop/DriveAssignment/AI_USAGE.md): AI interaction history and bug resolution logs.
+- [SCOPE.md]: Database Schema and Anomaly Detection Log.
+- [DECISIONS.md]: Architectural Design Decisions.
+- [AI_USAGE.md]: AI interaction history and bug resolution logs.
 
 ---
 
@@ -73,7 +73,7 @@ For details on database modeling, anomaly policies, and AI pair-programming deta
 The repository is pre-configured to be deployed directly to Vercel. 
 
 ### Monorepo Single Deployment Option
-At the project root, a [vercel.json](file:///c:/Users/shikh/Desktop/DriveAssignment/vercel.json) file is provided to deploy both the React frontend and Django backend together:
+At the project root, a [vercel.json](vercel.json) file is provided to deploy both the React frontend and Django backend together:
 1. Go to the [Vercel Dashboard](https://vercel.com) and click **Add New Project**.
 2. Select your repository.
 3. Leave the **Root Directory** as the root (`./`).
