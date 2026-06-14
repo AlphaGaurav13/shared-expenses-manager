@@ -70,19 +70,17 @@ For details on database modeling, anomaly policies, and AI pair-programming deta
 
 ## Deployment to Vercel
 
-The repository is pre-configured to be deployed directly to Vercel. 
+Working Site LINK: https://shared-expenses-manager.vercel.app/
 
-### Monorepo Single Deployment Option
-At the project root, a [vercel.json](vercel.json) file is provided to deploy both the React frontend and Django backend together:
-1. Go to the [Vercel Dashboard](https://vercel.com) and click **Add New Project**.
-2. Select your repository.
-3. Leave the **Root Directory** as the root (`./`).
-4. Vercel will automatically read the root `vercel.json` and build:
-   - The React frontend at `/` (routing requests to index.html)
-   - The Django serverless functions under `/api/`
-5. Configure the environment variables in your Vercel Project settings:
-   - `DB_HOST`, `DB_PORT`, `DB_NAME`, `DB_USER`, `DB_PASSWORD` (Point to a persistent hosted database like Supabase or Neon, since local SQLite is ephemeral on Vercel).
-   - `VITE_API_BASE_URL` (Set this to your Vercel deployment URL with `/api`, e.g. `https://my-app.vercel.app/api`).
+## Deliverable Documents
+
+The following documents are included in the repository:
+
+- [SCOPE.md](./SCOPE.md) — Database Schema and Anomaly Detection Log
+- [DECISIONS.md](./DECISIONS.md) — Architectural Design Decisions
+- [AI_USAGE.md](./AI_USAGE.md) — AI Collaboration and Debugging Log
+- [import_report.md](./import_report.md) — CSV Import Anomaly Report
+
 
 ### Preferred Split Deployment Option
 Because Django serverless functions on Vercel have ephemeral local storage and a 50-second timeout, the recommended production approach is:
